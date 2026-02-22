@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Hikmet Karčić – Naučni saradnik</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', serif; background: #f4f4f0; color: #222; line-height: 1.8; }
+
+        /* NAVIGACIJA */
+        nav {
+            background: #1a2a3a;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        nav .logo {
+            color: #e8d5a3;
+            font-size: 1.1em;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        nav ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-family: Arial, sans-serif;
+            transition: color 0.2s;
+        }
+        nav ul li a:hover { color: #e8d5a3; }
+
+        /* GOOGLE TRANSLATE */
+        .translate-bar {
+            background: #243447;
+            padding: 8px 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .translate-bar span {
+            color: #aaa;
+            font-size: 0.8em;
+            font-family: Arial, sans-serif;
+        }
+        #google_translate_element select {
+            font-size: 0.85em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background: #1a2a3a;
+            color: #e8d5a3;
+        }
+        .btn-reset {
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 5px 14px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+        }
+        .btn-reset:hover { background: #e74c3c; }
+        .goog-te-banner-frame { display: none !important; }
+        body { top: 0 !important; }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #1a2a3a 0%, #2c4a6e 100%);
+            color: white;
+            padding: 70px 40px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.6em;
+            color: #e8d5a3;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1.1em;
+            color: #aac4e0;
+            max-width: 700px;
+            margin: 0 auto 8px;
+            font-family: Arial, sans-serif;
+        }
+        .hero .subtitle {
+            font-size: 0.95em;
+            color: #7fa8c9;
+            font-style: italic;
+        }
+
+        /* WRAPPER */
+        .container { max-width: 960px; margin: 0 auto; padding: 50px 30px; }
+
+        /* SEKCIJE */
+        section { margin-bottom: 60px; }
+        h2 {
+            font-size: 1.7em;
+            color: #1a2a3a;
+            border-bottom: 3px solid #e8d5a3;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+        h3 {
+            font-size: 1.15em;
+            color: #2c4a6e;
+            margin: 25px 0 8px;
+        }
+        p { margin-bottom: 14px; font-size: 1em; }
+
+        /* ABOUT – slika + tekst */
+        .about-grid {
+            display: flex;
+            gap: 35px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .about-grid img {
+            width: 260px;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        .about-text { flex: 1; min-width: 250px; }
+
+        /* POZICIJE – kartice */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 18px;
+            margin-top: 10px;
+        }
+        .card {
+            background: white;
+            border-left: 4px solid #2c4a6e;
+            padding: 16px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .card strong {
+            display: block;
+            color: #1a2a3a;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        .card span {
+            font-size: 0.82em;
+            color: #666;
+            font-family: Arial, sans-serif;
+        }
+
+        /* OBRAZOVANJE */
+        .edu-table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 0.9em; }
+        .edu-table th { background: #1a2a3a; color: #e8d5a3; padding: 10px 14px; text-align: left; }
+        .edu-table td { padding: 10px 14px; border-bottom: 1px solid #ddd; vertical-align: top; }
+        .edu-table tr:nth-child(even) { background: #f0ede6; }
+
+        /* KNJIGE */
+        .books-grid {
+            display: flex;
+            gap: 35px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .books-grid img {
+            width: 220px;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        .book-item {
+            background: white;
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+            margin-bottom: 18px;
+            border-left: 4px solid #e8d5a3;
+        }
+        .book-item h3 { margin-top: 0; font-size: 1.05em; }
+        .book-item .meta {
+            font-size: 0.83em;
+            color: #888;
+            font-family: Arial, sans-serif;
+            margin-bottom: 8px;
+        }
+        .book-item .tag {
+            display: inline-block;
+            background: #2c4a6e;
+            color: white;
+            font-size: 0.75em;
+            padding: 2px 9px;
+            border-radius: 12px;
+            font-family: Arial, sans-serif;
+            margin-left: 6px;
+        }
+
+        /* MEDIJI – linkovi */
+        .media-grid {
+            display: flex;
+            gap: 35px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .media-grid img {
+            width: 220px;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        .media-content { flex: 1; min-width: 260px; }
+        .link-list { list-style: none; }
+        .link-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-family: Arial, sans-serif;
+            font-size: 0.92em;
+        }
+        .link-list li a {
+            color: #2c4a6e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .link-list li a:hover { text-decoration: underline; color: #1a2a3a; }
+        .link-list li .year {
+            color: #aaa;
+            font-size: 0.82em;
+            margin-left: 8px;
+        }
+        .link-list li .source {
+            display: block;
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        /* PROJEKTI */
+        .project-item {
+            background: white;
+            border-radius: 6px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+        }
+        .project-item h3 { margin-top: 0; color: #1a2a3a; }
+
+        /* KONTAKT */
+        .contact-box {
+            background: #1a2a3a;
+            color: white;
+            padding: 40px;
+            border-radius: 8px;
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .contact-box h2 { color: #e8d5a3; border-color: #e8d5a3; }
+        .contact-links { display: flex; flex-direction: column; gap: 14px; }
+        .contact-links a {
+            color: #aac4e0;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .contact-links a:hover { color: #e8d5a3; }
+        .contact-icon { font-size: 1.2em; }
+
+        /* FOOTER */
+        footer {
+            background: #0f1c2a;
+            color: #666;
+            text-align: center;
+            padding: 25px;
+            font-size: 0.82em;
+            font-family: Arial, sans-serif;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.8em; }
+            .about-grid img, .books-grid img, .media-grid img { width: 100%; }
+            nav ul { gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGACIJA -->
+<nav>
+    <div class="logo">Dr. Hikmet Karčić</div>
+    <ul>
+        <li><a href="#about">O meni</a></li>
+        <li><a href="#obrazovanje">Obrazovanje</a></li>
+        <li><a href="#knjige">Knjige</a></li>
+        <li><a href="#projekti">Projekti</a></li>
+        <li><a href="#mediji">Mediji</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+</nav>
+
+<!-- GOOGLE TRANSLATE -->
+<div class="translate-bar">
+    <span>🌐 Jezik / Language:</span>
+    <div id="google_translate_element"></div>
+    <button class="btn-reset" onclick="resetTranslation()">↩ Bosanski</button>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>Dr. Hikmet Karčić</h1>
+    <p>Naučni saradnik · Istraživač genocida · Senior Fellow, New Lines Institute Washington DC</p>
+    <p class="subtitle">Specijaliziran za studije genocida, logorski sistem u BiH, negiranje genocida i tranzicijsku pravdu</p>
+</div>
+
+<div class="container">
+
+    <!-- O MENI -->
+    <section id="about">
+        <h2>O meni</h2>
+        <div class="about-grid">
+            <img src="Slika2.jpg" alt="Dr. Hikmet Karčić u kancelariji" onerror="this.style.display='none'">
+            <div class="about-text">
+                <p>Dr. Hikmet Karčić je naučni saradnik iz Sarajeva, specijaliziran za studije genocida, sistem logora u Bosni i Hercegovini, negiranje genocida i tranzicijsku pravdu. Diplomirao je i magistrirao na Pravnom fakultetu Univerziteta u Sarajevu, a doktorirao 2018. godine na Internacionalnom univerzitetu u Sarajevu (IUS).</p>
+                <p>Njegova doktorska disertacija, pod naslovom „Logori kao sredstvo etničko-religijskog čišćenja ne-Srba u Bosni i Hercegovini 1992–1995", postala je osnova za jednu od najznačajnijih akademskih knjiga o ratu u BiH – <em>Torture, Humiliate, Kill</em>, objavljenu 2022. u nakladi University of Michigan Press.</p>
+                <p>Aktivan je kao predavač i predavač-gost na univerzitetima širom Evrope i SAD-a, a redovito piše za međunarodne medije poput Haaretza, Newsweeka, Foreign Policy-ja i Arab Newsa.</p>
+
+                <h3>Trenutne pozicije i affilijacije</h3>
+                <div class="cards">
+                    <div class="card">
+                        <strong>Naučni saradnik</strong>
+                        <span>Institut za istraživanje zločina protiv čovječnosti i međunarodnog prava, UNSA</span>
+                    </div>
+                    <div class="card">
+                        <strong>Istraživač</strong>
+                        <span>Institut za islamsku tradiciju Bošnjaka (IITB), Sarajevo</span>
+                    </div>
+                    <div class="card">
+                        <strong>Senior Fellow</strong>
+                        <span>New Lines Institute for Strategy and Policy, Washington DC</span>
+                    </div>
+                    <div class="card">
+                        <strong>Direktor</strong>
+                        <span>Sarajevo Security Conference (SSC)</span>
+                    </div>
+                    <div class="card">
+                        <strong>Global Fellow (2017)</strong>
+                        <span>Auschwitz Institute for Peace and Reconciliation / Keene State College, USA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OBRAZOVANJE -->
+    <section id="obrazovanje">
+        <h2>Obrazovanje</h2>
+        <table class="edu-table">
+            <tr>
+                <th>Stepen</th>
+                <th>Institucija</th>
+                <th>Tema / naslov rada</th>
+                <th>Godina</th>
+            </tr>
+            <tr>
+                <td>Diploma (BA)</td>
+                <td>Pravni fakultet, Univerzitet u Sarajevu</td>
+                <td>Pravo</td>
+                <td>2010</td>
+            </tr>
+            <tr>
+                <td>Magistar (MA)</td>
+                <td>Pravni fakultet, Univerzitet u Sarajevu</td>
+                <td>Uloga i značaj apelacija pred Domom za ljudska prava u procesu traženja nestalih osoba 1996–2003</td>
+                <td>2012</td>
+            </tr>
+            <tr>
+                <td>Doktor nauka (PhD)</td>
+                <td>Internacionalni univerzitet u Sarajevu (IUS)</td>
+                <td>Logori kao sredstvo etničko-religijskog čišćenja ne-Srba u Bosni i Hercegovini 1992–1995</td>
+                <td>2018</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- KNJIGE -->
+    <section id="knjige">
+        <h2>Knjige i publikacije</h2>
+        <div class="books-grid">
+            <img src="Slika3.jpg" alt="Dr. Hikmet Karčić s knjigom" onerror="this.style.display='none'">
+            <div style="flex:1; min-width:260px;">
+
+                <div class="book-item">
+                    <h3>Apelacijama do istine = An appeal for truth</h3>
+                    <div class="meta">2010 · Fondacija Konrad Adenauer / Univerzitet u Sarajevu · Jezik: bosanski</div>
+                    <p>Studija o ulozi Doma za ljudska prava u procesu traženja nestalih osoba u Bosni i Hercegovini 1996–2003.</p>
+                </div>
+
+                <div class="book-item">
+                    <h3>Derviš M. Korkut: A Biography – Rescuer of the Sarajevo Haggadah</h3>
+                    <div class="meta">2020 · El-Kalem / Institut za islamsku tradiciju Bošnjaka, Sarajevo · Jezik: bosanski / engleski</div>
+                    <p>Biografija Derviša M. Korkuta, akademika koji je u Drugom svjetskom ratu spasio Sarajevsku Hagadu i jevrejsku djevojčicu Donkicu Papo.</p>
+                </div>
+
+                <div class="book-item">
+                    <h3>Torture, Humiliate, Kill: Inside the Bosnian Serb Camp System</h3>
+                    <div class="meta">2022 · University of Michigan Press, Ann Arbor, USA · Jezik: engleski<span class="tag">Open access</span></div>
+                    <p>Sveobuhvatna akademska analiza sistema logora bosanskih Srba kao organiziranog sredstva etničko-religijskog čišćenja ne-Srba u Bosni i Hercegovini 1992–1995.</p>
+                    <p><a href="https://library.oapen.org/handle/20.500.12657/54710" target="_blank" style="color:#2c4a6e; font-weight:bold;">→ Čitaj / preuzmi online (Open Access)</a></p>
+                </div>
+
+                <div class="book-item">
+                    <h3>Nastanak Republike Srpske: Od regionalizacije do strateških ciljeva</h3>
+                    <div class="meta">2023 · Institut za historiju, Univerzitet u Sarajevu · Koautori: Muamer Džananović, Jasmin Medić<span class="tag">Koautor</span></div>
+                    <p>Arhivski dokumentovana analiza planiranja agresije na Bosnu i Hercegovinu u periodu 1991–1992. godine, od regionalizacije do proglašenja Republike Srpske.</p>
+                </div>
+
+                <div class="book-item">
+                    <h3>Presretnuti razgovori: Pripreme za rat</h3>
+                    <div class="meta">2024 · Fakultet političkih nauka, Sarajevo · Koautori: Emir Suljagić, Sead Turčalo<span class="tag">Koautor</span></div>
+                    <p>Prva naučna valorizacija presretnutih razgovora srpskih političkih i vojnih elita u pripremama za rat u Bosni i Hercegovini. U pripremi su englesko izdanje i online platforma.</p>
+                </div>
+
+                <div class="book-item">
+                    <h3>Genocid u Bosni i Hercegovini – institucije, počinioci i posljedice</h3>
+                    <div class="meta">2024 · Institut za islamsku tradiciju Bošnjaka, Sarajevo · Jezik: bosanski</div>
+                    <p>Analiza institucionalnih i individualnih dimenzija genocida u Bosni i Hercegovini, sa osvrtom na pravne i historijske posljedice.</p>
+                </div>
+
+                <div class="book-item">
+                    <h3>Zvornik 1992–1995: Genocid na kapiji Bosne</h3>
+                    <div class="meta">2026 · Institut za istraživanje zločina, Univerzitet u Sarajevu · Autori: Muamer Džananović, Elvedin Mulagić<span class="tag">Urednik</span></div>
+                    <p>Dvotomno naučno izdanje koje dokumentuje genocid i ratne zločine počinjene u Zvorniku u periodu 1992–1995. godine.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJEKTI -->
+    <section id="projekti">
+        <h2>Projekti i angažmani</h2>
+
+        <div class="project-item">
+            <h3>🏛 Sarajevo Security Conference (SSC) – Direktor</h3>
+            <p>Regionalna sigurnosna konferencija visokog nivoa, pokrenuta 2023. u Sarajevu u okviru organizacije Strategic Analysis Initiative (SAI). Konferencija okuplja međunarodne lidere, diplomate i stručnjake, sa fokusom na NATO partnerstvo, EU integracije, hibridne prijetnje i autoritarne utjecaje u regiji Zapadnog Balkana. Treće, jubilajno izdanje održano je u septembru 2025. uz podršku NATO-a.</p>
+        </div>
+
+        <div class="project-item">
+            <h3>🗺 Mapiranje logora i mjesta zatočenja u BiH 1992–1995</h3>
+            <p>Projekat sistematskog evidentiranja i dokumentovanja svih logora i mjesta zatočenja tokom rata u Bosni i Hercegovini. Realizovan u okviru udruženja TPOS, u ulozi koordinatora. Baza podataka ovog projekta poslužila je kao ključna empirijska osnova za knjigu <em>Torture, Humiliate, Kill</em>.</p>
+        </div>
+
+        <div class="project-item">
+            <h3>📋 Denial and Triumphalism konferencija (2020)</h3>
+            <p>Međunarodna hibridna konferencija „Bosnian Genocide Denial and Triumphalism: Origins, Impact and Prevention", organizovana na Fakultetu političkih nauka u Sarajevu. Dr. Karčić je bio ko-organizator i govornik, a radovi s konferencije objavljeni su kao naučna publikacija.</p>
+        </div>
+
+    </section>
+
+    <!-- MEDIJI -->
+    <section id="mediji">
+        <h2>Mediji i javni nastup</h2>
+        <div class="media-grid">
+            <img src="Slika1.jpg" alt="Dr. Hikmet Karčić na govornici" onerror="this.style.display='none'">
+            <div class="media-content">
+
+                <h3>🎙 Podcasti</h3>
+                <ul class="link-list">
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=T0-OYnZeYhk" target="_blank">IslamEDU Podcast – S03E08: Istraživanje genocida, drugih zločina i memorijalizacija</a>
+                        <span class="source">IslamEDU</span>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=-hkHYRFjd3c" target="_blank">Peace Matters Podcast – E07: Radicalization, Nationalism, Genocide – A Threat to Europe?</a>
+                        <span class="year">2023</span>
+                        <span class="source">International Institute for Peace (IIP)</span>
+                    </li>
+                </ul>
+
+                <h3>📚 Book talks i webinari</h3>
+                <ul class="link-list">
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=yN2VyvSw_Kk" target="_blank">Book Talk: Torture, Humiliate, Kill – Harriman Institute, Columbia University</a>
+                        <span class="year">2022</span>
+                        <span class="source">Columbia University, New York</span>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=c9qrvYFKQv8" target="_blank">IAGS Webinar: Torture, Humiliate, Kill – International Association of Genocide Scholars</a>
+                        <span class="year">2022</span>
+                        <span class="source">IAGS Wednesday Webinar Series</span>
+                    </li>
+                </ul>
+
+                <h3>✍ Autorski tekstovi i kolumne</h3>
+                <ul class="link-list">
+                    <li>
+                        <a href="https://newlinesinstitute.org/in_the_media/op-ed-by-senior-fellow-hikmet-karcic-russias-campaign-to-rewrite-wwii-history-is-dividing-the-balkans-just-as-putin-intended/" target="_blank">Russia's Campaign to Rewrite WWII History Is Dividing the Balkans. Just as Putin Intended</a>
+                        <span class="year">2020</span>
+                        <span class="source">Haaretz</span>
+                    </li>
+                    <li>
+                        <a href="https://balkans.aljazeera.net/teme/2019/12/28/hikmet-karcic-rat-u-bih-dao-je-krila-desnicarskim-ideologijama" target="_blank">Rat u BiH dao je krila desničarskim ideologijama</a>
+                        <span class="year">2019</span>
+                        <span class="source">Al Jazeera Balkans</span>
+                    </li>
+                    <li>
+                        <a href="https://europeanwesternbalkans.com/2023/10/10/ewb-interview-karcic-balkans-are-more-visible-on-the-radar-of-eu-and-nato-following-the-war-in-ukraine" target="_blank">Balkans Are More Visible on the Radar of EU and NATO Following the War in Ukraine</a>
+                        <span class="year">2023</span>
+                        <span class="source">European Western Balkans</span>
+                    </li>
+                </ul>
+
+                <h3>📰 Objavljuje u</h3>
+                <p style="font-family: Arial, sans-serif; font-size:0.9em; color:#555;">
+                    Newsweek &nbsp;·&nbsp; Foreign Policy &nbsp;·&nbsp; Haaretz &nbsp;·&nbsp; Arab News &nbsp;·&nbsp; Al Jazeera &nbsp;·&nbsp; New Lines Institute &nbsp;·&nbsp; European Western Balkans
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt">
+        <div class="contact-box">
+            <div>
+                <h2>Kontakt</h2>
+                <p style="color:#aac4e0; font-family: Arial, sans-serif; font-size:0.9em;">Za upite vezane za saradnju, predavanja i medijske nastupe:</p>
+            </div>
+            <div class="contact-links">
+                <a href="mailto:karcichikmet@gmail.com">
+                    <span class="contact-icon">✉</span> karcichikmet@gmail.com
+                </a>
+                <a href="tel:+38761864420">
+                    <span class="contact-icon">📞</span> +387 61 864 420
+                </a>
+                <a href="https://www.linkedin.com/in/hikmet-karcic-720b3b13/" target="_blank">
+                    <span class="contact-icon">in</span> LinkedIn profil
+                </a>
+                <a href="https://unsa-ba.academia.edu/HikmetKarcic" target="_blank">
+                    <span class="contact-icon">🎓</span> Academia.edu profil
+                </a>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>Dr. Hikmet Karčić · Sarajevo, Bosna i Hercegovina · © 2026</p>
+    <p>Svi podaci su prikupljeni iz javno dostupnih akademskih i medijskih izvora.</p>
+</footer>
+
+<!-- GOOGLE TRANSLATE -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'bs',
+            includedLanguages: 'en,de,fr,ar',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+    function resetTranslation() {
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+        window.location.reload();
+    }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
