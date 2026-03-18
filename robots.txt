@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sabanijas-web.github.io/Hikmet_Karcic/sitemap.xml
